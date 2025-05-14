@@ -6,6 +6,7 @@ from sklearn.preprocessing import LabelEncoder
 import xml.etree.ElementTree as ET
 from geonamescache import GeonamesCache
 import pycountry
+import os
 
 HAZARD_WEIGHTS = {
     "earthquake": {"base": 2.5},
@@ -207,7 +208,7 @@ if selected_country and housing_material and ((location_method == "Detect my loc
         
         
     if lat and lon:
-        weather_api_key = "60db84613c500177045c7561ed065ff0"
+        weather_api_key = os.getenv("WEATHER_API_KEY")
         try:
             weather_resp = requests.get(f"http://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={weather_api_key}&units=metric")
             weather_data = weather_resp.json()
